@@ -1,7 +1,5 @@
 use std::{
-    io::Write,
-    net::{TcpListener, TcpStream},
-    thread,
+    fs, io::Write, net::{TcpListener, TcpStream}, thread
 };
 
 struct Response {
@@ -29,7 +27,8 @@ impl Response {
 fn handle_client(mut stream: TcpStream) {
     println!("accepted new connection");
 
-    let response = Response::new("200 OK", "Hello, client!");
+    let body = fs::read_to_string("hello.html").unwrap();
+    let response = Response::new("200 OK", &body);
 
     if let Err(e) = stream.write(response.to_string().as_bytes()) {
         eprintln!("Failed to write to stream: {}", e);
