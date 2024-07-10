@@ -29,7 +29,7 @@ impl Response {
 fn handle_client(mut stream: TcpStream) {
     println!("accepted new connection");
 
-    let response = Response::new("200 Ok", "Hello, client!");
+    let response = Response::new("200 OK", "Hello, client!");
 
     if let Err(e) = stream.write(response.to_string().as_bytes()) {
         eprintln!("Failed to write to stream: {}", e);
