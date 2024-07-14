@@ -110,6 +110,9 @@ fn handle_client(mut stream: TcpStream) {
     } else if request.path.starts_with("/echo/") {
         let body = request.path.replace("/echo/", "");
         response = Response::new("200 OK", &body);
+    } else if request.path.eq("/user-agent") {
+        let body = request.get_header("user-agent");
+        response = Response::new("200 OK", &body);
     } else {
         response = Response::new("404 Not Found", "");
     }
